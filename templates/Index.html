@@ -1,1 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>◇ 𝐀𝐥𝐥 𝐒𝐨𝐜𝐢𝐚𝐥 𝐌𝐞𝐝𝐢𝐚 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 ◇</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ec4899'><path d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: #fcf8fa; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; align-items: center; position: relative; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; top: -100px; left: -100px; width: 350px; height: 350px; background: rgba(236, 72, 153, 0.25); filter: blur(90px); border-radius: 50%; z-index: -1; }
+        body::after { content: ''; position: fixed; top: 200px; right: -100px; width: 350px; height: 350px; background: rgba(250, 204, 21, 0.25); filter: blur(90px); border-radius: 50%; z-index: -1; }
+        .top-bar-container { width: 100%; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; padding: 10px 12px; background: rgba(252, 248, 250, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(236, 72, 153, 0.15); }
+        .top-bar { width: 100%; max-width: 440px; padding: 10px 16px; background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(236, 72, 153, 0.08); }
+        .brand { font-weight: 800; font-size: 14px; background: linear-gradient(135deg, #ec4899, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 8px; }
+        .platform-section { width: 100%; max-width: 440px; padding: 0 12px; margin: 12px 0; text-align: center; }
+        .platform-title { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .social-chips { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+        .chip { display: flex; align-items: center; gap: 4px; padding: 4px 10px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 20px; font-size: 10px; font-weight: 700; }
+        .chip svg { width: 14px; height: 14px; }
+        .yt-color { color: #ef4444; } .yt-color svg { fill: #ef4444; }
+        .insta-color { color: #ec4899; } .insta-color svg { fill: #ec4899; }
+        .fb-color { color: #2563eb; } .fb-color svg { fill: #2563eb; }
+        .main-wrapper { width: 100%; max-width: 440px; padding: 0 12px; }
+        .app-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(236, 72, 153, 0.25); border-radius: 24px; padding: 18px; box-shadow: 0 15px 35px rgba(236, 72, 153, 0.1); }
+        .input-box { position: relative; display: flex; gap: 6px; margin-bottom: 12px; }
+        .input-box input { width: 100%; padding: 11px 14px 11px 38px; background: rgba(255, 255, 255, 0.9); border: 1.5px solid #fbcfe8; border-radius: 14px; font-size: 12.5px; color: #1e293b; outline: none; }
+        .input-box input:focus { border-color: #ec4899; box-shadow: 0 0 10px rgba(236, 72, 153, 0.2); }
+        .input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; fill: #ec4899; }
+        .btn-sm-search { background: linear-gradient(135deg, #ec4899, #db2777); border: none; border-radius: 14px; padding: 0 14px; color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3); }
+        .results-box { display: none; max-height: 260px; overflow-y: auto; margin-bottom: 12px; }
+        .search-card { display: flex; gap: 8px; background: #fff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 6px; margin-bottom: 6px; cursor: pointer; }
+        .search-card img { width: 70px; height: 48px; object-fit: cover; border-radius: 8px; }
+        .search-card-title { font-size: 11px; font-weight: 700; color: #1e293b; line-height: 1.3; }
+        .preview-card { display: none; background: #fff; border: 1px solid #fbcfe8; border-radius: 16px; padding: 10px; margin-bottom: 12px; }
+        .thumb-box { position: relative; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+        .thumb-box img { width: 100%; height: 160px; object-fit: cover; display: block; }
+        .badge-4k { position: absolute; top: 6px; right: 6px; background: #ec4899; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+        .video-title { font-size: 12px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+        .file-size-badge { font-size: 10px; font-weight: 700; color: #059669; background: #ecfdf5; padding: 2px 8px; border-radius: 6px; display: inline-block; }
+        .download-controls { display: none; animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-switcher { display: flex; background: rgba(251, 207, 232, 0.3); border-radius: 14px; padding: 3px; border: 1px solid rgba(236, 72, 153, 0.2); margin-bottom: 12px; }
+        .tab-btn { flex: 1; padding: 7px; border: none; border-radius: 10px; background: transparent; color: #64748b; font-size: 11.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .tab-btn svg { width: 14px; height: 14px; fill: currentColor; }
+        .tab-btn.active { background: #ec4899; color: #fff; box-shadow: 0 4px 10px rgba(236, 72, 153, 0.3); }
+        .quality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+        .q-btn { padding: 8px 10px; background: #fff; border: 1px solid #f1f5f9; border-radius: 12px; color: #475569; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; flex-direction: column; }
+        .q-btn svg { width: 13px; height: 13px; fill: currentColor; }
+        .q-btn.selected { border-color: #ec4899; background: rgba(236, 72, 153, 0.08); color: #ec4899; }
+        .q-size { font-size: 9px; opacity: 0.8; font-weight: 600; }
+        .download-btn { width: 100%; padding: 11px; background: linear-gradient(135deg, #ec4899, #eab308); border: none; border-radius: 14px; color: #fff; font-weight: 800; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 6px 16px rgba(236, 72, 153, 0.3); }
+        .progress-area { margin-top: 12px; display: none; }
+        .progress-info { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; margin-bottom: 4px; color: #64748b; }
+        .progress-bar-bg { width: 100%; height: 7px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; width: 0%; background: #ec4899; transition: width 0.3s ease; }
+        .guide-card { width: 100%; max-width: 440px; margin: 16px 0; padding: 16px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 20px; }
+        .guide-title { font-size: 12px; font-weight: 800; color: #ec4899; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .guide-step { font-size: 11px; color: #475569; margin-bottom: 8px; line-height: 1.4; font-weight: 600; }
+        .guide-step span { color: #ec4899; font-weight: 800; }
+        .footer-credit { width: calc(100% - 24px); max-width: 440px; margin-bottom: 16px; padding: 12px; background: rgba(255, 255, 255, 0.95); border: 1px solid #fbcfe8; border-radius: 18px; text-align: center; font-size: 11px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .copyright-text { color: #64748b; font-weight: 700; margin-bottom: 6px; font-size: 10.5px; }
+        .contact-owner-btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: #0284c7; color: #fff; border-radius: 12px; font-size: 10.5px; font-weight: 700; text-decoration: none; box-shadow: 0 3px 10px rgba(2, 132, 199, 0.25); margin-bottom: 8px; }
+        .contact-owner-btn svg { width: 13px; height: 13px; fill: #fff; }
+        .made-by-animated { font-size: 11px; font-weight: 800; color: #0f172a; display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 4px; }
+        .heart-icon { display: inline-block; color: #ef4444; animation: pulseHeart 1.2s infinite alternate ease-in-out; }
+        @keyframes pulseHeart { 0% { transform: scale(1); } 100% { transform: scale(1.35); } }
+    </style>
+</head>
+<body>
 
+<div class="top-bar-container">
+    <div class="top-bar">
+        <div class="brand">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#ec4899"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            <span>◇ 𝐀𝐥𝐥 𝐒𝐨𝐜𝐢𝐚𝐥 𝐌𝐞𝐝𝐢𝐚 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 ◇</span>
+        </div>
+    </div>
+</div>
+
+<div class="platform-section">
+    <div class="platform-title">All Platforms Supported</div>
+    <div class="social-chips">
+        <div class="chip yt-color"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube</div>
+        <div class="chip insta-color"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</div>
+        <div class="chip fb-color"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</div>
+    </div>
+</div>
+
+<div class="main-wrapper">
+    <div class="app-card">
+        <div class="input-box">
+            <svg class="input-icon" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+            <input type="text" id="videoUrl" placeholder="Search video or paste URL..." onkeypress="if(event.key === 'Enter') handleSearch()">
+            <button class="btn-sm-search" onclick="handleSearch()">Search</button>
+        </div>
+
+        <div class="results-box" id="resultsContainer">
+            <div id="resultsList"></div>
+        </div>
+
+        <div class="preview-card" id="previewCard">
+            <div class="thumb-box">
+                <img id="thumbImg" src="" alt="Thumbnail">
+                <div class="badge-4k">4K HD MP4</div>
+            </div>
+            <div class="video-title" id="videoTitle">Media Ready</div>
+            <div class="file-size-badge" id="fileSizeDisplay">Est. File Size: Fetching...</div>
+        </div>
+
+        <div class="download-controls" id="downloadControls">
+            <div class="tab-switcher">
+                <button class="tab-btn active" id="tabVideo" onclick="switchTab('video')">
+                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    Video MP4
+                </button>
+                <button class="tab-btn" id="tabAudio" onclick="switchTab('audio')">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                    Audio MP3
+                </button>
+            </div>
+
+            <div class="quality-grid" id="qualityGrid"></div>
+
+            <button class="download-btn" onclick="startProcess()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                Start Download
+            </button>
+        </div>
+
+        <div class="progress-area" id="progressArea">
+            <div class="progress-info">
+                <span id="statusText">Converting...</span>
+                <span id="percentText">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-card">
+        <div class="guide-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#ec4899"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/></svg>
+            How to Use Full Features
+        </div>
+        <div class="guide-step"><span>1. Search or Paste:</span> Any video link paste karein ya keyword search karke Enter press karein.</div>
+        <div class="guide-step"><span>2. Select Quality:</span> Link detection / Selection par hi Quality options open honge.</div>
+        <div class="guide-step"><span>3. Original Size:</span> Real-time file size estimates display hota hai.</div>
+        <div class="guide-step"><span>4. Direct Storage Download:</span> Download par click karte hi file storage me save ho jayegi.</div>
+    </div>
+</div>
+
+<div class="footer-credit">
+    <div class="copyright-text">All Copyrights ©2026 Reserved | All Social Media Download X</div>
+    <div>
+        <a href="https://t.me/YADAVXAHIR" target="_blank" class="contact-owner-btn">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.53c-.15.68-.56.84-1.13.52l-3.1-2.29-1.5 1.44c-.16.16-.3.3-.61.3l.22-3.18 5.79-5.23c.25-.22-.05-.35-.39-.13l-7.15 4.5-3.08-.96c-.67-.21-.68-.67.14-.99l12.05-4.65c.56-.2 1.05.14.88.94z"/></svg>
+            Contact Us Owner
+        </a>
+    </div>
+    <div class="made-by-animated">
+        Made By- <span class="heart-icon">❤️</span> —͟͞͞ 𝙔ᴀᴅᴀ𝙫<\>x- 🇮🇳𒌋ᥫ᭡
+    </div>
+</div>
+
+<script>
+let currentMode = 'video';
+let selectedQuality = '1080p';
+let targetUrl = '';
+
+const videoQualities = [
+    { label: '720p HD MP4', val: '720p', estSize: '~25 MB' },
+    { label: '1080p Full HD', val: '1080p', estSize: '~55 MB' },
+    { label: '2K Quad HD', val: '2K', estSize: '~110 MB' },
+    { label: '4K Ultra HD', val: '4K', estSize: '~240 MB' }
+];
+
+const audioQualities = [
+    { label: '320kbps MP3', val: '320k', estSize: '~9 MB' },
+    { label: '128kbps MP3', val: '128k', estSize: '~4 MB' }
+];
+
+function renderQualities() {
+    const grid = document.getElementById('qualityGrid');
+    grid.innerHTML = '';
+    const items = currentMode === 'video' ? videoQualities : audioQualities;
+    
+    items.forEach((item, idx) => {
+        const btn = document.createElement('div');
+        btn.className = `q-btn ${idx === 1 || (currentMode === 'audio' && idx === 0) ? 'selected' : ''}`;
+        btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg><span>${item.label}</span><span class="q-size">${item.estSize}</span>`;
+        btn.onclick = () => {
+            document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedQuality = item.val;
+            document.getElementById('fileSizeDisplay').innerText = `Est. File Size: ${item.estSize}`;
+        };
+        grid.appendChild(btn);
+    });
+    selectedQuality = currentMode === 'video' ? '1080p' : '320k';
+    document.getElementById('fileSizeDisplay').innerText = `Est. File Size: ${currentMode === 'video' ? '~55 MB' : '~9 MB'}`;
+}
+
+function switchTab(mode) {
+    currentMode = mode;
+    document.getElementById('tabVideo').classList.toggle('active', mode === 'video');
+    document.getElementById('tabAudio').classList.toggle('active', mode === 'audio');
+    renderQualities();
+}
+
+renderQualities();
+
+function showControls() {
+    document.getElementById('downloadControls').style.display = 'block';
+}
+
+async function handleSearch() {
+    const query = document.getElementById('videoUrl').value.trim();
+    if (!query) return;
+
+    if (query.startsWith('http://') || query.startsWith('https://')) {
+        targetUrl = query;
+        document.getElementById('resultsContainer').style.display = 'none';
+        fetchDirectPreview(query);
+        showControls();
+        return;
+    }
+
+    const listContainer = document.getElementById('resultsList');
+    listContainer.innerHTML = '<div style="font-size:11px; color:#94a3b8; text-align:center; padding:8px;">Searching...</div>';
+    document.getElementById('resultsContainer').style.display = 'block';
+
+    try {
+        const res = await fetch('/api/search', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({query: query})
+        });
+        const data = await res.json();
+        
+        if (data.status === 'success' && data.results.length > 0) {
+            listContainer.innerHTML = '';
+            data.results.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'search-card';
+                card.innerHTML = `
+                    <img src="${item.thumbnail}">
+                    <div>
+                        <div class="search-card-title">${item.title}</div>
+                    </div>
+                `;
+                card.onclick = () => selectVideo(item);
+                listContainer.appendChild(card);
+            });
+        }
+    } catch(e) {}
+}
+
+function selectVideo(item) {
+    targetUrl = item.url;
+    document.getElementById('thumbImg').src = item.thumbnail;
+    document.getElementById('videoTitle').innerText = item.title;
+    document.getElementById('resultsContainer').style.display = 'none';
+    document.getElementById('previewCard').style.display = 'block';
+    showControls();
+}
+
+async function fetchDirectPreview(url) {
+    try {
+        const res = await fetch('/api/preview', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({url: url})
+        });
+        const data = await res.json();
+        if(data.status === 'success') {
+            document.getElementById('thumbImg').src = data.thumbnail;
+            document.getElementById('videoTitle').innerText = data.title;
+            document.getElementById('previewCard').style.display = 'block';
+            showControls();
+        }
+    } catch(e) {}
+}
+
+async function startProcess() {
+    if (!targetUrl) targetUrl = document.getElementById('videoUrl').value.trim();
+    if (!targetUrl) return alert('Select or paste a video URL!');
+
+    const pArea = document.getElementById('progressArea');
+    const pFill = document.getElementById('progressFill');
+    const pStatus = document.getElementById('statusText');
+
+    pArea.style.display = 'block';
+    pFill.style.width = '40%';
+
+    try {
+        const response = await fetch('/api/download', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: targetUrl, mode: currentMode, quality: selectedQuality })
+        });
+
+        pFill.style.width = '85%';
+
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let fileName = 'downloaded_media';
+        if (contentDisposition && contentDisposition.includes('filename=')) {
+            fileName = contentDisposition.split('filename=')[1].replace(/["']/g, '');
+        } else {
+            fileName += currentMode === 'audio' ? '.mp3' : '.mp4';
+        }
+
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        pFill.style.width = '100%';
+        pStatus.innerText = 'Completed!';
+
+        setTimeout(() => { pArea.style.display = 'none'; }, 3000);
+
+    } catch (err) {
+        pStatus.innerText = 'Download Error!';
+    }
+}
+</script>
+</body>
+  </html>
